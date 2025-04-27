@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "Game.hpp"
 
 Game::Game(unsigned int width, unsigned int height, const char* title) : window(sf::VideoMode({ width, height }), title)
 {

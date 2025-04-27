@@ -8,5 +8,5 @@ public:
 	static void moveLeft();
 	static void moveRight();
 
-	static KeyHandler getControls();
+	static KeyHandler getKeyHandler();
 };

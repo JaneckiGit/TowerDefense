@@ -1,7 +1,7 @@
 #pragma once  
 #include <iostream>  
 #include "API.h"  
-#include "KeyHandler.h"
+#include "KeyHandler.hpp"
 #include <vector>
 #include <SFML/Graphics.hpp>  
 

@@ -1,4 +1,4 @@
-#include "PlayerControls.h"
+#include "PlayerControls.hpp"
 
 void PlayerControls::moveUp()
 {
@@ -21,7 +21,7 @@ void PlayerControls::moveRight()
 }
 
 
-KeyHandler PlayerControls::getControls() {
+KeyHandler PlayerControls::getKeyHandler() {
 	KeyHandler keyHandler;
 	keyHandler.addKeyAction({ sf::Keyboard::Scancode::W, moveUp });
 	keyHandler.addKeyAction({ sf::Keyboard::Scancode::S, moveDown });

@@ -1,4 +1,4 @@
-#include "KeyHandler.h"
+#include "KeyHandler.hpp"
 
 KeyHandler::KeyHandler() = default;
 KeyHandler::KeyHandler(std::vector<KeyAction> actions) : keyActions(actions) {}
