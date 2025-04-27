@@ -143,6 +143,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PlayerControls.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="general.h" />
+    <ClInclude Include="PlayerControls.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
