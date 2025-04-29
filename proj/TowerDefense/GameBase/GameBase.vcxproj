@@ -93,7 +93,8 @@
     <PostBuildEvent>
       <Command>copy /Y "$(ProjectDir)*.h" "$(SolutionDir)include"
 copy /Y "$(SolutionDir)x64\Debug\*.dll" "$(SolutionDir)bin"
-copy /Y "$(SolutionDir)x64\Debug\*lib" "$(SolutionDir)lib"</Command>
+copy /Y "$(SolutionDir)x64\Debug\*lib" "$(SolutionDir)lib"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -127,8 +128,10 @@ copy /Y "$(SolutionDir)x64\Debug\*lib" "$(SolutionDir)lib"</Command>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(ProjectDir)*.h" "$(SolutionDir)..\..\include"
+copy /Y "$(ProjectDir)*.hpp" "$(SolutionDir)..\..\include"
 copy /Y "$(SolutionDir)x64\Debug\*.dll" "$(SolutionDir)..\..\bin"
-copy /Y "$(SolutionDir)x64\Debug\*lib" "$(SolutionDir)..\..\lib"</Command>
+copy /Y "$(SolutionDir)x64\Debug\*lib" "$(SolutionDir)..\..\lib"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -150,18 +153,22 @@ copy /Y "$(SolutionDir)x64\Debug\*lib" "$(SolutionDir)..\..\lib"</Command>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(ProjectDir)*.h" "$(SolutionDir)..\..\include"
+copy /Y "$(ProjectDir)*.hpp" "$(SolutionDir)..\..\include"
 copy /Y "$(SolutionDir)x64\Debug\*.dll" "$(SolutionDir)..\..\bin"
-copy /Y "$(SolutionDir)x64\Debug\*lib" "$(SolutionDir)..\..\lib"</Command>
+copy /Y "$(SolutionDir)x64\Debug\*lib" "$(SolutionDir)..\..\lib"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="API.hpp" />
     <ClInclude Include="KeyHandler.hpp" />
     <ClInclude Include="Game.hpp" />
+    <ClInclude Include="MouseHandler.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KeyHandler.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="MouseHandler.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

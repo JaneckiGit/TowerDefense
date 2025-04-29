@@ -1,6 +1,18 @@
 #include "EventsHandler.hpp"
+#include <Game.hpp>
 
 KeyHandler EventsHandler::playerKeyHandler = PlayerControls::getKeyHandler();
+MouseHandler EventsHandler::mouseHandler;
+
+void EventsHandler::initializeMouseHandlers() {
+	// Example mouse click handler
+	mouseHandler.addMouseAction({
+		sf::Mouse::Button::Left, // Left mouse button
+		[](const sf::Vector2i& position) {
+			std::cout << "Left mouse button pressed at: (" << position.x << ", " << position.y << ")" << std::endl;
+		}
+	});
+}
 
 void EventsHandler::eventsHandler(sf::RenderWindow& window)
 {
@@ -10,24 +22,47 @@ void EventsHandler::eventsHandler(sf::RenderWindow& window)
 	};
 	const auto onResize = [&window](const sf::Event::Resized&)
 	{
-		// Window size
-		sf::Vector2u size = window.getSize();
-
-		// Resize the window to maintain the aspect ratio
-		float ratio = WINDOW_RATIO;
-		if (size.x / static_cast<float>(size.y) > ratio) {
-			size.x = static_cast<unsigned int>(size.y * ratio);
+		// Get the new window size
+		sf::Vector2u newSize = window.getSize();
+		
+		// Calculate the target size that maintains the 4:3 aspect ratio
+		float targetRatio = WINDOW_RATIO; // 4:3 ratio (800/600)
+		
+		// Determine which dimension to adjust based on the current window size
+		if (newSize.x / static_cast<float>(newSize.y) > targetRatio) {
+			// Window is too wide, adjust width
+			newSize.x = static_cast<unsigned int>(newSize.y * targetRatio);
+		} else {
+			// Window is too tall, adjust height
+			newSize.y = static_cast<unsigned int>(newSize.x / targetRatio);
 		}
-		else {
-			size.y = static_cast<unsigned int>(size.x / ratio);
-		}
+		
 		// Set the new size
-		std::cout << "Resized to: " << size.x << "x" << size.y << std::endl;
-		window.setSize(size);
+		window.setSize(newSize);
+		
+		// Set up a fixed view size of 800x600 (your game world size)
+		sf::View view = window.getView();
+		view.setSize({ 800.0f, 600.0f }); // Fixed game world size
+		view.setCenter({ 400.0f, 300.0f }); // Center of the game world
+		window.setView(view);
+		
+		std::cout << "Resized to maintain 4:3 ratio: " << newSize.x << "x" << newSize.y << std::endl;
 	};
 	const auto onKeyPressed = [&window](const sf::Event::KeyPressed& keyPressed)
 	{
 		playerKeyHandler.handleKey(keyPressed); // Handle key events
 	};
-	window.handleEvents(onClose, onResize, onKeyPressed); // Handle events
+	const auto onMousePressed = [&window](const sf::Event::MouseButtonPressed& mousePressed)
+	{
+		// Get the mouse position in window coordinates
+		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+		
+		// Convert to world coordinates using the current view
+		sf::Vector2f worldPos = window.mapPixelToCoords(mousePos);
+		
+		// Pass the world coordinates to the mouse handler
+		mouseHandler.handleMouseClick(mousePressed, sf::Vector2i(worldPos.x, worldPos.y));
+	};
+
+	window.handleEvents(onClose, onResize, onKeyPressed, onMousePressed); // Handle events
 }
