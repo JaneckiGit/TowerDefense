@@ -39,11 +39,10 @@ void EventsHandler::eventsHandler(sf::RenderWindow& window)
 		
 		// Set the new size
 		window.setSize(newSize);
-		
-		// Set up a fixed view size of 800x600 (your game world size)
+
 		sf::View view = window.getView();
-		view.setSize({ 800.0f, 600.0f }); // Fixed game world size
-		view.setCenter({ 400.0f, 300.0f }); // Center of the game world
+		view.setSize({ WINDOW_WIDTH, WINDOW_HEIGHT }); // Fixed game world size
+		view.setCenter({ WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 }); // Center of the game world
 		window.setView(view);
 		
 		std::cout << "Resized to maintain 4:3 ratio: " << newSize.x << "x" << newSize.y << std::endl;
