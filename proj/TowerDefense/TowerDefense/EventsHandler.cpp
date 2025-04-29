@@ -25,8 +25,8 @@ void EventsHandler::eventsHandler(sf::RenderWindow& window)
 		// Get the new window size
 		sf::Vector2u newSize = window.getSize();
 		
-		// Calculate the target size that maintains the 4:3 aspect ratio
-		float targetRatio = WINDOW_RATIO; // 4:3 ratio (800/600)
+		// Calculate the target size that maintains aspect ratio
+		float targetRatio = WINDOW_RATIO;
 		
 		// Determine which dimension to adjust based on the current window size
 		if (newSize.x / static_cast<float>(newSize.y) > targetRatio) {
@@ -45,7 +45,7 @@ void EventsHandler::eventsHandler(sf::RenderWindow& window)
 		view.setCenter({ WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 }); // Center of the game world
 		window.setView(view);
 		
-		std::cout << "Resized to maintain 4:3 ratio: " << newSize.x << "x" << newSize.y << std::endl;
+		std::cout << "Resized with ratio: " << newSize.x << "x" << newSize.y << std::endl;
 	};
 	const auto onKeyPressed = [&window](const sf::Event::KeyPressed& keyPressed)
 	{
