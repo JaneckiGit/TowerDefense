@@ -16,8 +16,7 @@ private:
 	std::vector<KeyAction> keyActions;
 
 public:
-
-	KeyHandler();
+	KeyHandler() = default;
 	KeyHandler(std::vector<KeyAction> actions);
 
 	void addKeyAction(const KeyAction& key);

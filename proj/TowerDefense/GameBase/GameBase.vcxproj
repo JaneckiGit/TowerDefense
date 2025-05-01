@@ -161,13 +161,15 @@ copy /Y "$(SolutionDir)x64\Debug\*lib" "$(SolutionDir)..\..\lib"
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="API.hpp" />
+    <ClInclude Include="InputManager.hpp" />
     <ClInclude Include="KeyHandler.hpp" />
-    <ClInclude Include="Game.hpp" />
+    <ClInclude Include="GameManager.hpp" />
     <ClInclude Include="MouseHandler.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="KeyHandler.cpp" />
-    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="MouseHandler.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,13 +1,13 @@
 #include "EventsHandler.hpp"
-#include <Game.hpp>
+#include <GameManager.hpp>
 
-KeyHandler EventsHandler::playerKeyHandler = PlayerControls::getKeyHandler();
-MouseHandler EventsHandler::mouseHandler;
-
-void EventsHandler::initializeMouseHandlers() {
-	// Example mouse click handler
-	mouseHandler.addMouseAction({
-		sf::Mouse::Button::Left, // Left mouse button
+void EventsHandler::initialize() {
+	// Inicjalizacja sterowania graczem
+	PlayerControls::initialize();
+	
+	// Inicjalizacja obsługi myszy
+	auto& inputManager = InputManager::getInstance();
+	inputManager.registerMouseAction({ sf::Mouse::Button::Left, 
 		[](const sf::Vector2i& position) {
 			std::cout << "Left mouse button pressed at: (" << position.x << ", " << position.y << ")" << std::endl;
 		}
@@ -22,46 +22,44 @@ void EventsHandler::eventsHandler(sf::RenderWindow& window)
 	};
 	const auto onResize = [&window](const sf::Event::Resized&)
 	{
-		// Get the new window size
+		// Pobierz nowy rozmiar okna
 		sf::Vector2u newSize = window.getSize();
 		
-		// Calculate the target size that maintains aspect ratio
+		// Oblicz docelowy rozmiar zachowujący proporcje
 		float targetRatio = WINDOW_RATIO;
 		
-		// Determine which dimension to adjust based on the current window size
+		// Określ, który wymiar dostosować na podstawie aktualnego rozmiaru okna
 		if (newSize.x / static_cast<float>(newSize.y) > targetRatio) {
-			// Window is too wide, adjust width
+			// Okno jest za szerokie, dostosuj szerokość
 			newSize.x = static_cast<unsigned int>(newSize.y * targetRatio);
 		} else {
-			// Window is too tall, adjust height
+			// Okno jest za wysokie, dostosuj wysokość
 			newSize.y = static_cast<unsigned int>(newSize.x / targetRatio);
 		}
 		
-		// Set the new size
+		// Ustaw nowy rozmiar
 		window.setSize(newSize);
 
 		sf::View view = window.getView();
-		view.setSize({ WINDOW_WIDTH, WINDOW_HEIGHT }); // Fixed game world size
-		view.setCenter({ WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 }); // Center of the game world
+		view.setSize({ WINDOW_WIDTH, WINDOW_HEIGHT }); // Stały rozmiar świata gry
+		view.setCenter({ WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 }); // Środek świata gry
 		window.setView(view);
 		
 		std::cout << "Resized with ratio: " << newSize.x << "x" << newSize.y << std::endl;
 	};
-	const auto onKeyPressed = [&window](const sf::Event::KeyPressed& keyPressed)
-	{
-		playerKeyHandler.handleKey(keyPressed); // Handle key events
+	const auto onKeyPressed = [](const sf::Event::KeyPressed& keyPressed) {
+		InputManager::getInstance().handleKeyEvent(keyPressed);
 	};
-	const auto onMousePressed = [&window](const sf::Event::MouseButtonPressed& mousePressed)
-	{
-		// Get the mouse position in window coordinates
+	const auto onMousePressed = [&window](const sf::Event::MouseButtonPressed& mousePressed) {
+		// Pobierz pozycję myszy w współrzędnych okna
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 		
-		// Convert to world coordinates using the current view
+		// Konwertuj do współrzędnych świata używając aktualnego widoku
 		sf::Vector2f worldPos = window.mapPixelToCoords(mousePos);
 		
-		// Pass the world coordinates to the mouse handler
-		mouseHandler.handleMouseClick(mousePressed, sf::Vector2i(worldPos.x, worldPos.y));
+		// Przekaż współrzędne świata do menedżera wejścia
+		InputManager::getInstance().handleMouseEvent(mousePressed, sf::Vector2i(worldPos.x, worldPos.y));
 	};
 
-	window.handleEvents(onClose, onResize, onKeyPressed, onMousePressed); // Handle events
+	window.handleEvents(onClose, onResize, onKeyPressed, onMousePressed); // Obsłuż zdarzenia
 }

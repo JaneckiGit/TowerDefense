@@ -1,18 +1,17 @@
 #include "KeyHandler.hpp"
 
-KeyHandler::KeyHandler() = default;
 KeyHandler::KeyHandler(std::vector<KeyAction> actions) : keyActions(actions) {}
 
 void KeyHandler::addKeyAction(const KeyAction& action)
 {
-	keyActions.emplace_back(action);
+	keyActions.push_back(action);
 }
 
 void KeyHandler::handleKey(const sf::Event::KeyPressed& keyPressed)
 {
 	for (const auto& action : keyActions)
 	{
-		if (keyPressed.scancode == action.scancode)
+		if (action.scancode == keyPressed.scancode)
 		{
 			action.callback();
 		}

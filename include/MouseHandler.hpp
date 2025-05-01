@@ -15,7 +15,7 @@ private:
     std::vector<MouseAction> mouseActions;
 
 public:
-    MouseHandler();
+    MouseHandler() = default;
     MouseHandler(std::vector<MouseAction> actions);
 
     void addMouseAction(const MouseAction& action);

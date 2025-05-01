@@ -1,15 +1,12 @@
+#pragma once
 #include "PlayerControls.hpp"  
 #include "general.hpp"  
 #include <SFML/Graphics.hpp>  
-#include <MouseHandler.hpp>
+#include <InputManager.hpp>
 
-class EventsHandler {  
-private:  
-	static KeyHandler playerKeyHandler;
-	static MouseHandler mouseHandler;
-
+class EventsHandler {
 public:  
 	static void eventsHandler(sf::RenderWindow& window);  
-	static void initializeMouseHandlers();
+	static void initialize();
 };  
 

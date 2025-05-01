@@ -1,5 +1,14 @@
 #include "PlayerControls.hpp"
 
+void PlayerControls::initialize() {
+	auto& inputManager = InputManager::getInstance();
+	
+	inputManager.registerKeyAction({ sf::Keyboard::Scancode::W, moveUp });
+	inputManager.registerKeyAction({ sf::Keyboard::Scancode::S, moveDown });
+	inputManager.registerKeyAction({ sf::Keyboard::Scancode::A, moveLeft });
+	inputManager.registerKeyAction({ sf::Keyboard::Scancode::D, moveRight });
+}
+
 void PlayerControls::moveUp()
 {
 	std::cout << "Move Up" << std::endl;
@@ -18,14 +27,4 @@ void PlayerControls::moveLeft()
 void PlayerControls::moveRight()
 {
 	std::cout << "Move Right" << std::endl;
-}
-
-
-KeyHandler PlayerControls::getKeyHandler() {
-	KeyHandler keyHandler;
-	keyHandler.addKeyAction({ sf::Keyboard::Scancode::W, moveUp });
-	keyHandler.addKeyAction({ sf::Keyboard::Scancode::S, moveDown });
-	keyHandler.addKeyAction({ sf::Keyboard::Scancode::A, moveLeft });
-	keyHandler.addKeyAction({ sf::Keyboard::Scancode::D, moveRight });
-	return keyHandler;
 }
