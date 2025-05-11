@@ -146,12 +146,14 @@
   <ItemGroup>
     <ClCompile Include="EventsHandler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="PlayerControls.cpp" />
     <ClCompile Include="TowerDefenseGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventsHandler.hpp" />
     <ClInclude Include="general.hpp" />
+    <ClInclude Include="Menu.hpp" />
     <ClInclude Include="PlayerControls.hpp" />
     <ClInclude Include="TowerDefenseGame.hpp" />
   </ItemGroup>
